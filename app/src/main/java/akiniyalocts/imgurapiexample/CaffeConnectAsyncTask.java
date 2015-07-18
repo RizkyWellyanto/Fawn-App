@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 import akiniyalocts.imgurapiexample.activities.MainActivity;
@@ -58,7 +59,8 @@ public class CaffeConnectAsyncTask extends AsyncTask<Void, Void, Void>{
         if (correlationKeys != null && correlationValues != null) {
 
             // IT WAS SUCCESSFUL, CHAIN ANOTHER REQUEST HERE
-            Toast.makeText(this.activity, "Corrleation received",
+            Toast.makeText(this.activity,
+                    "Corrleation received " + Arrays.toString(this.correlationKeys) + " " + Arrays.toString(this.correlationValues),
                     Toast.LENGTH_LONG).show();
 
         }

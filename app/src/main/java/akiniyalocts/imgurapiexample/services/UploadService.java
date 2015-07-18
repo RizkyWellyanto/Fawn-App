@@ -1,5 +1,6 @@
 package akiniyalocts.imgurapiexample.services;
 
+import akiniyalocts.imgurapiexample.CaffeConnectAsyncTask;
 import akiniyalocts.imgurapiexample.Constants;
 import akiniyalocts.imgurapiexample.helpers.NotificationHelper;
 import akiniyalocts.imgurapiexample.imgurmodel.BasicResponse;
@@ -95,6 +96,12 @@ public class UploadService extends AsyncTask<Void, Void, Void> {
       if(response.success) {
         mUploaded.onImageUploaded(response);
         notificationHelper.createUploadedNotification(response);
+
+        // Extract the response string
+        String url = response.data.link;
+
+        // Start the image learning async task
+        (new CaffeConnectAsyncTask(this.activity, url)).execute();
       }
 
 
