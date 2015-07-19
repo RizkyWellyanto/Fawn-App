@@ -4,11 +4,17 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
@@ -44,7 +50,15 @@ public class CaffeConnectAsyncTask extends AsyncTask<Void, Void, Void>{
                     Elements correlations = doc.select("#infopred ul li");
                     this.correlationKeys = correlations.select("a").text().split(" ");
                     this.correlationValues = correlations.select("span").text().split(" ");
+                    HttpClient httpclient = new DefaultHttpClient();
+
+                    HttpGet request = new HttpGet();
+                    URI website = new URI("http://first-1010.appspot.com?word="+this.correlationKeys[0]);
+                    request.setURI(website);
+                    HttpResponse response = httpclient.execute(request);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
             }
